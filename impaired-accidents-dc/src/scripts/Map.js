@@ -15,10 +15,6 @@ const draw = (props) => {
         .attr('width', w)
         .call(responsivefy);
 
-    // svg.append("g")
-    //     .attr("transform", "translate(610,20)")
-    //     .append(() => legend({ color: totalsColor, title: "data.title", width: 260 }));
-
     svg.append('g')
         .selectAll('path')
         .data(props.mapData.features)
