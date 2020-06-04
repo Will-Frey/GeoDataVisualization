@@ -9,6 +9,10 @@ div.mapSlider {
     padding-top: 20px;
 }
 
+div.mapSliderContainer {
+    background-color: lightgray;
+}
+
 table {
     max-width: 80%;
     margin: auto;
@@ -16,11 +20,15 @@ table {
 }
 
 div.spacer {
-    padding: 30px;
+    padding: 20px;
 }
 
 div.header {
     background-color: lightblue;
     padding: 20px;
     margin-bottom: 30px;
+}
+
+p.mapLabel {
+    padding-right: 10%;
 }

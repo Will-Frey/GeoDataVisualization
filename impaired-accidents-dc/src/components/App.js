@@ -39,18 +39,23 @@ class App extends Component {
                     </Typography>
                 </div>
                 <MapComponent mapData={geoData} yearRange={this.state.yearRange} />
-                <div className="mapSlider">
-                    <Typography id="range-slider" gutterBottom>
-                        Data Range (year)
-                    </Typography>
-                    <Slider
-                        min={2010}
-                        max={2014}
-                        step={null}
-                        marks={marks}
-                        value={this.state.yearRange}
-                        onChange={handleChange}
-                    />
+                <Typography align='right' variant="body2" className="mapLabel">
+                    Map of Washington, DC
+                </Typography>
+                <div className="mapSliderContainer">
+                    <div className="mapSlider">
+                        <Typography id="range-slider" gutterBottom>
+                            Data Range Filter (year)
+                        </Typography>
+                        <Slider
+                            min={2010}
+                            max={2014}
+                            step={null}
+                            marks={marks}
+                            value={this.state.yearRange}
+                            onChange={handleChange}
+                        />
+                    </div>
                 </div>
                 <div className="spacer" />
                 <div className="dataTable">
