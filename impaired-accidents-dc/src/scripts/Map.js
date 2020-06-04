@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 import legend from './legend'
 
-const draw = (props, yearRange) => {
+const draw = (props) => {
     const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     const projection = d3.geoAlbers()
@@ -23,7 +23,7 @@ const draw = (props, yearRange) => {
         .selectAll('path')
         .data(props.mapData.features)
         .join('path')
-        .attr('fill', d => totalsColor(sumFeatureData(d, yearRange)))
+        .attr('fill', d => totalsColor(sumFeatureData(d, props.yearRange)))
         .attr('d', pathGenerator)
         .append('title')
         .text(d => `${d.properties.name}: ${d.properties.total}`);
