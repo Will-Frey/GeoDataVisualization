@@ -33,12 +33,15 @@ class App extends Component {
 
         return (
             <div className='App'>
-                <Typography align='center' variant='h4' paragraph>
-                    Impaired Car Crashes in Washington, DC by neighborhood (2010-2014)
-                </Typography>
+                <div className="header">
+                    <Typography align='center' variant='h4' paragraph>
+                        Impaired Car Crashes in Washington, DC by neighborhood (2010-2014)
+                    </Typography>
+                </div>
+                <MapComponent mapData={geoData} yearRange={this.state.yearRange} />
                 <div className="mapSlider">
                     <Typography id="range-slider" gutterBottom>
-                        Year Range
+                        Data Range (year)
                     </Typography>
                     <Slider
                         min={2010}
@@ -49,10 +52,10 @@ class App extends Component {
                         onChange={handleChange}
                     />
                 </div>
-                <MapComponent mapData={geoData} yearRange={this.state.yearRange} />
+                <div className="spacer" />
                 <div className="dataTable">
                     <TableContainer component={Paper}>
-                        <Table size="small">
+                        <Table size="small" stickyHeader>
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Neighborhood</TableCell>

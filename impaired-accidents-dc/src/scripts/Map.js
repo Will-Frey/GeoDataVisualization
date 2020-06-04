@@ -1,13 +1,13 @@
 import * as d3 from 'd3'
-import legend from './legend'
 
 const draw = (props) => {
     const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    const projection = d3.geoAlbers()
-        .fitExtent([[0, 0], [w, h]], props.mapData);
+    const projection = d3.geoAlbers().fitExtent([[0, 0], [w, h]], props.mapData);
     const pathGenerator = d3.geoPath().projection(projection);
-    const totalsColor = d3.scaleQuantile([0, 40], d3.schemeBlues[9]);
+    const rangeMax = findRangeMax(props.mapData.features, props.yearRange)
+    console.log(findFeatureRangeMax(props.mapData.features[0], props.yearRange));
+    const totalsColor = d3.scaleQuantile([0, 30], d3.schemeBlues[9]);
 
     d3.select('.mapComponent > *').remove();
     var svg = d3.select('.mapComponent').append('svg')
@@ -26,6 +26,8 @@ const draw = (props) => {
 
 }
 
+// Finds the sum of all accidents for the given feature
+// that occured within the given yearRange
 const sumFeatureData = (feature, yearRange) => {
     // Create Array of years to display
     const filledYearRange = Array(yearRange[1] - yearRange[0] + 1).fill().map((_, idx) => String(yearRange[0] + idx));
@@ -39,6 +41,26 @@ const sumFeatureData = (feature, yearRange) => {
             }
             return sum;
         }, 0);
+}
+
+const findRangeMax = (features, yearRange) => {
+    // Create Array of selected years
+    const filledYearRange = Array(yearRange[1] - yearRange[0] + 1).fill().map((_, idx) => String(yearRange[0] + idx));
+
+    return features.reduce((maxF, feature) => {
+        return Math.max(maxF, findFeatureRangeMax(feature, filledYearRange));
+    }, 1);
+}
+
+const findFeatureRangeMax = (feature, yearRange) => {
+    return Object.keys(feature.properties)
+        .filter(key => yearRange.includes(key))
+        .reduce((maxYear, property) => {
+            if (feature.properties[property] != null) {
+                maxYear = Math.max(maxYear, feature.properties[property]);
+            }
+            return maxYear;
+        }, 1);
 }
 
 // Function to responsively resize an svg based on screen size

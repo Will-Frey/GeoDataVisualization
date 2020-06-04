@@ -6,8 +6,22 @@ div.mapSlider {
     width: 40%;
     text-align: center;
     margin: 2%;
+    float: right;
+    padding-right: 10%;
 }
 
 table {
     max-width: 80%;
+    margin: auto;
+    padding: 10px;
+}
+
+div.spacer {
+    padding: 30px;
+}
+
+div.header {
+    background-color: lightblue;
+    padding: 20px;
+    margin-bottom: 30px;
 }
