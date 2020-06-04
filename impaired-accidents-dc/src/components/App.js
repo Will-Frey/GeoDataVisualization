@@ -54,6 +54,9 @@ class App extends Component {
                 </div>
                 <div className="spacer" />
                 <div className="dataTable">
+                    <Typography align="center" variant="h5">
+                        Table Data
+                    </Typography>
                     <TableContainer component={Paper}>
                         <Table size="small" stickyHeader>
                             <TableHead>

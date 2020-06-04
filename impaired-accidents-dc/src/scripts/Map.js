@@ -6,8 +6,7 @@ const draw = (props) => {
     const projection = d3.geoAlbers().fitExtent([[0, 0], [w, h]], props.mapData);
     const pathGenerator = d3.geoPath().projection(projection);
     const rangeMax = findRangeMax(props.mapData.features, props.yearRange)
-    console.log(findFeatureRangeMax(props.mapData.features[0], props.yearRange));
-    const totalsColor = d3.scaleQuantile([0, 30], d3.schemeBlues[9]);
+    const totalsColor = d3.scaleQuantile([0, rangeMax], d3.schemeBlues[9]);
 
     d3.select('.mapComponent > *').remove();
     var svg = d3.select('.mapComponent').append('svg')
@@ -22,7 +21,7 @@ const draw = (props) => {
         .attr('fill', d => totalsColor(sumFeatureData(d, props.yearRange)))
         .attr('d', pathGenerator)
         .append('title')
-        .text(d => `${d.properties.name}: ${d.properties.total}`);
+        .text(d => `${d.properties.name}: ${sumFeatureData(d, props.yearRange)}`);
 
 }
 
@@ -44,23 +43,9 @@ const sumFeatureData = (feature, yearRange) => {
 }
 
 const findRangeMax = (features, yearRange) => {
-    // Create Array of selected years
-    const filledYearRange = Array(yearRange[1] - yearRange[0] + 1).fill().map((_, idx) => String(yearRange[0] + idx));
-
     return features.reduce((maxF, feature) => {
-        return Math.max(maxF, findFeatureRangeMax(feature, filledYearRange));
+        return Math.max(maxF, sumFeatureData(feature, yearRange));
     }, 1);
-}
-
-const findFeatureRangeMax = (feature, yearRange) => {
-    return Object.keys(feature.properties)
-        .filter(key => yearRange.includes(key))
-        .reduce((maxYear, property) => {
-            if (feature.properties[property] != null) {
-                maxYear = Math.max(maxYear, feature.properties[property]);
-            }
-            return maxYear;
-        }, 1);
 }
 
 // Function to responsively resize an svg based on screen size

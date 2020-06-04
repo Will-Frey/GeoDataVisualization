@@ -5,9 +5,8 @@ path {
 div.mapSlider {
     width: 40%;
     text-align: center;
-    margin: 2%;
-    float: right;
-    padding-right: 10%;
+    margin: auto;
+    padding-top: 20px;
 }
 
 table {
