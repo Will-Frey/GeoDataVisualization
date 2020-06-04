@@ -1,3 +1,9 @@
 path {
     stroke: #000;
 }
+
+div.mapSlider {
+    width: 40%;
+    text-align: center;
+    margin: 2%;
+}

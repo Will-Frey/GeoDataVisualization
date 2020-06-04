@@ -1,12 +1,16 @@
 import * as d3 from 'd3'
 
-const draw = (props) => {
+const draw = (props, yearRange) => {
     const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     const projection = d3.geoAlbers()
         .fitExtent([[0,0], [w,h]], props.mapData);
     const pathGenerator = d3.geoPath().projection(projection);
-    const totalsColor = d3.scaleQuantize([1, 30], d3.schemeGreens[9]);
+    const totalsColor = d3.scaleQuantile()
+        .domain([0,40])
+        .range(d3.schemeBlues[9]);
+
+    filterFeatureData(props.mapData.features[0], yearRange);
 
     d3.select('.mapComponent > *').remove();
     var svg = d3.select('.mapComponent').append('svg')
@@ -18,11 +22,26 @@ const draw = (props) => {
         .selectAll('path')
         .data(props.mapData.features)
         .join('path')
-            .attr('fill', d => totalsColor(d.properties.total))
+            .attr('fill', d => totalsColor(filterFeatureData(d, yearRange)))
             .attr('d', pathGenerator)
         .append('title')
             .text(d => `${d.properties.name}: ${d.properties.total}`);
 
+}
+
+const filterFeatureData = (feature, yearRange) => {
+    // Create Array of years to display
+    const filledYearRange = Array(yearRange[1] - yearRange[0] + 1).fill().map((_, idx) => String(yearRange[0] + idx));
+
+    // Pull only requested years from dataset
+    return Object.keys(feature.properties)
+        .filter(key => filledYearRange.includes(key))
+        .reduce((sum, key) => {
+            if(feature.properties[key] != null){
+              sum = sum + feature.properties[key];
+            }
+            return sum;
+          }, 0);
 }
 
 // Function to responsively resize an svg based on screen size
