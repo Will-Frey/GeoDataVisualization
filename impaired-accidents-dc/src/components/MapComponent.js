@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Slider, Typography} from '@material-ui/core'
-import draw from './Map.js'
+import { Slider, Typography } from '@material-ui/core'
+import draw from '../scripts/Map.js'
 
 export default class MapComponent extends Component {
     constructor(props) {
@@ -20,18 +20,18 @@ export default class MapComponent extends Component {
 
     render() {
         const handleChange = (event, newValue) => {
-            this.setState({ yearRange: newValue})
-          };
+            this.setState({ yearRange: newValue })
+        };
 
         const marks = [
-        { value: 2010, label: '2010' },
-        { value: 2011, label: '2011' },
-        { value: 2012, label: '2012' },
-        { value: 2013, label: '2013' },
-        { value: 2014, label: '2014' }
+            { value: 2010, label: '2010' },
+            { value: 2011, label: '2011' },
+            { value: 2012, label: '2012' },
+            { value: 2013, label: '2013' },
+            { value: 2014, label: '2014' }
         ];
 
-        return(
+        return (
             <>
                 <div className="mapSlider">
                     <Typography id="range-slider" gutterBottom>
