@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { legend } from './legend'
+import legend from './legend'
 
 const draw = (props, yearRange) => {
     const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -7,9 +7,7 @@ const draw = (props, yearRange) => {
     const projection = d3.geoAlbers()
         .fitExtent([[0, 0], [w, h]], props.mapData);
     const pathGenerator = d3.geoPath().projection(projection);
-    const totalsColor = d3.scaleQuantile()
-        .domain([0, 40])
-        .range(d3.schemeBlues[9]);
+    const totalsColor = d3.scaleQuantile([0, 40], d3.schemeBlues[9]);
 
     d3.select('.mapComponent > *').remove();
     var svg = d3.select('.mapComponent').append('svg')
@@ -17,9 +15,9 @@ const draw = (props, yearRange) => {
         .attr('width', w)
         .call(responsivefy);
 
-    svg.append("g")
-        .attr("transform", "translate(610,20)")
-        .append(() => legend({ color, title: data.title, width: 260 }));
+    // svg.append("g")
+    //     .attr("transform", "translate(610,20)")
+    //     .append(() => legend({ color: totalsColor, title: "data.title", width: 260 }));
 
     svg.append('g')
         .selectAll('path')
