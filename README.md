@@ -1,6 +1,8 @@
 # GeoDataVisualization
 ### A short project to visualize car accident data from Washington, DC (2010-2014)
 
+This React app that can be run locally with `npm start`
+
 #### Thoughts
 My approach to this project began with looking at the data I was given. I had never seen or used a geojson file before, and I wanted to know more about what it is, how I can use it with d3, and what the actual data points given represent. After some research and examining the file, I started to brainstorm how I could visualize the data in a meaningful way. I decided on creating a Choropleth map, and I wanted to have the ability to specify which year(s) to show. I also wanted a table to display the raw values for each neighborhood. 
 
