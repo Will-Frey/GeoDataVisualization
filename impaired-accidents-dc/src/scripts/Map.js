@@ -42,6 +42,7 @@ const sumFeatureData = (feature, yearRange) => {
         }, 0);
 }
 
+// Given a year range, find the upper bound of all feature data
 const findRangeMax = (features, yearRange) => {
     return features.reduce((maxF, feature) => {
         return Math.max(maxF, sumFeatureData(feature, yearRange));
